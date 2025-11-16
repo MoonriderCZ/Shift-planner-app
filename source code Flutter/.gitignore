@@ -1,0 +1,48 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+Thumbs.db
+migrate_working_dir/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# Flutter / Dart / Pub
+.dart_tool/
+.packages
+.pub/
+.pub-cache/
+build/
+coverage/
+.flutter-plugins-dependencies
+**/doc/api/
+**/ios/Flutter/.last_build_id
+
+# Generated package files
+package_config.json
+package_graph.json
+
+# Windows build / binaries
+*.exe
+*.pdb
+*.dll
+*.lib
+windows/runner/
+windows/flutter/
+
+# OS / tooling
+*.user
+*.suo
+*.vs/
+*.log
+
+# Optional: do not track legacy or local-only folders
+legacy_code/
+"Shift-planner-app"/
