@@ -12,20 +12,27 @@ class ScheduleScreen extends StatefulWidget {
 
 // 🔧 Stavová třída
 class _ScheduleScreenState extends State<ScheduleScreen> {
-  // 📅 Řídicí prvky pro vstup
+  // 📅 Řídicí prvky pro vstup (kotva)
   final _yearController = TextEditingController(text: '2025');
   final _monthController = TextEditingController(text: '12');
   final _dayController = TextEditingController(text: '1');
 
+  // 📅 Nové řídicí prvky pro cílový měsíc/rok
+  final _targetYearController = TextEditingController(text: '2026');
+  final _targetMonthController = TextEditingController(text: '1');
+
   String _startShift = 'N'; // 🌙 Výchozí směna
   List<Map<String, String>>? _schedule; // 📋 Výsledný plán
-  late String _targetMonthYear; // 🏷️ Zobrazení měsíce/roku
+  late String _targetMonthYear; // 🏷️ Zobrazení cílového měsíce/roku
 
   // 🧮 Generování rozvrhu
   void _generateSchedule() {
-    final year = int.tryParse(_yearController.text) ?? 2025;
-    final month = int.tryParse(_monthController.text) ?? 12;
+    // Kotva (den, kdy máš směnu)
     final startDay = int.tryParse(_dayController.text) ?? 1;
+
+    // Cílový měsíc/rok
+    final year = int.tryParse(_targetYearController.text) ?? 2025;
+    final month = int.tryParse(_targetMonthController.text) ?? 12;
 
     final settings = {
       'year': year,
@@ -55,18 +62,18 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
         child: Column(
           // ⬅️ 3. Sloupec s ovládacími prvky a seznamem
           children: [
-            // 🔢 Vstupní řádek
+            // 🔢 Vstupní řádek – kotva
             Row(children: [
               Expanded(
                 child: TextField(
                   controller: _yearController,
-                  decoration: const InputDecoration(labelText: 'Rok'),
+                  decoration: const InputDecoration(labelText: 'Kotva – rok'),
                 ),
               ),
               Expanded(
                 child: TextField(
                   controller: _monthController,
-                  decoration: const InputDecoration(labelText: 'Měsíc'),
+                  decoration: const InputDecoration(labelText: 'Kotva – měsíc'),
                 ),
               ),
               Expanded(
@@ -84,11 +91,29 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                   onChanged: (val) => setState(() => _startShift = val!),
                 ),
               ),
+            ]), // ⬅️ konec Row (kotva)
+
+            const SizedBox(height: 12),
+
+            // 🔢 Vstupní řádek – cílový měsíc/rok
+            Row(children: [
+              Expanded(
+                child: TextField(
+                  controller: _targetYearController,
+                  decoration: const InputDecoration(labelText: 'Cílový rok'),
+                ),
+              ),
+              Expanded(
+                child: TextField(
+                  controller: _targetMonthController,
+                  decoration: const InputDecoration(labelText: 'Cílový měsíc'),
+                ),
+              ),
               ElevatedButton(
                 onPressed: _generateSchedule,
                 child: const Text('Vygenerovat'),
               ),
-            ]), // ⬅️ konec Row
+            ]), // ⬅️ konec Row (cílový měsíc/rok)
 
             const SizedBox(height: 12),
 
